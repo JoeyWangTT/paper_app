@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">paper_app</string>
+    <string name="app_name">テスト</string>
+    <string name="app_level">分類1</string>
 </resources>
