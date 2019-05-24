@@ -1,5 +1,6 @@
 package com.example.paper_app;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                setBtnText(linearLayout, "test");
                 HttpURLConnection connection = null;
                 BufferedReader reader = null;
                 try {
@@ -88,7 +90,9 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setContentView(R.layout.activity_answer);
+                Intent intent=new Intent(MainActivity.this,AnswerActivity.class);   //Intent intent=new Intent(MainActivity.this,JumpToActivity.class);
+                startActivity(intent);
+                //setContentView(R.layout.activity_answer);
             }
         });
         layout.addView(btn, new LinearLayout.LayoutParams(MP, WC));
