@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">テスト</string>
-    <string name="app_level">分類1</string>
+    <string name="app_charset_name">UTF-8</string>
+    <string name="app_level_name">categoryName</string>
+    <string name="app_wait">しばしお待ちください</string>
+    <string name="api_url">http://192.168.10.6:3000/</string>
 </resources>
