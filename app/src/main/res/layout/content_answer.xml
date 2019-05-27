@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AnswerActivity"
+    tools:showIn="@layout/activity_answer">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="right"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/answerButtonEnd"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="0"
+            android:text="終了"
+            android:textColor="#2077A2" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="在Xdpi下绘制Xpx长度，实际的物理距离都是1英寸，为什么一定要选160呢？如果设定宽高为厘米，或者英寸之类的物理单位，屏幕根据dpi的大小来计算要显示多少像素才能达到这个物理单位，不是更好？为什么要引入dp？" />
+
+        <CheckBox
+            android:id="@+id/checkid1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Android Design [4] 里把主流设备的 dpi 归成了四个档次，320 dpi" />
+
+        <CheckBox
+            android:id="@+id/checkid2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Android Design [2] 里把主流设备的 dpi 归成了四个档次，160 dpi" />
+
+        <CheckBox
+            android:id="@+id/checkid3"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Android Design [3] 里把主流设备的 dpi 归成了四个档次，240 dpi" />
+
+        <CheckBox
+            android:id="@+id/checkid4"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Android Design [4] 里把主流设备的 dpi 归成了四个档次，320 dpi" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <Button
+            android:id="@+id/button4"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#3D9990"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="次へ"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button6"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:background="#3D9990"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:text="戻す"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
