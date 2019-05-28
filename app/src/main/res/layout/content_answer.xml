@@ -52,30 +52,6 @@
             android:layout_height="80dp"
             android:text="在Xdpi下绘制Xpx长度，实际的物理距离都是1英寸，为什么一定要选160呢？如果设定宽高为厘米，或者英寸之类的物理单位，屏幕根据dpi的大小来计算要显示多少像素才能达到这个物理单位，不是更好？为什么要引入dp？" />
 
-        <CheckBox
-            android:id="@+id/checkid1"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Android Design [4] 里把主流设备的 dpi 归成了四个档次，320 dpi" />
-
-        <CheckBox
-            android:id="@+id/checkid2"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Android Design [2] 里把主流设备的 dpi 归成了四个档次，160 dpi" />
-
-        <CheckBox
-            android:id="@+id/checkid3"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Android Design [3] 里把主流设备的 dpi 归成了四个档次，240 dpi" />
-
-        <CheckBox
-            android:id="@+id/checkid4"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="Android Design [4] 里把主流设备的 dpi 归成了四个档次，320 dpi" />
-
     </LinearLayout>
 
     <LinearLayout
