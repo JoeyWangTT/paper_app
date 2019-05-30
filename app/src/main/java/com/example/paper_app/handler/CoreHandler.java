@@ -22,7 +22,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class CoreHandler {
-    private final static   String  ChoicesURL = "http://192.168.0.114:8080/getQChoiceById/A";
+    private final static   String  ChoicesURL = "http://192.168.0.114:8080/getQChoiceById/";
 
     private  static ChoiceCache cache = new ChoiceCache();
 
@@ -37,6 +37,7 @@ public class CoreHandler {
     public  static  void setChoiceLevel(String choiceLevel){
         cache.setChoiceLevel(choiceLevel);
     }
+
 
     public  static boolean addChoice(Choice c){
         return cache.getChoices().add(c);
@@ -61,7 +62,7 @@ public class CoreHandler {
                 .addFormDataPart("key", "value")
                 .build();
         final Request request = new Request.Builder()
-                .url(ChoicesURL)
+                .url(ChoicesURL + getChoiceLevel())
                 .post(requestBody)
                 .build();
         Call call = client.newCall(request);
@@ -108,6 +109,10 @@ public class CoreHandler {
 
     public  static void resetChoices(){
         cache.getChoices().clear();
+    }
+
+    public  static void setChoicesIndex(int index){
+        cache.setChoiceIndex(index);
     }
 
 }

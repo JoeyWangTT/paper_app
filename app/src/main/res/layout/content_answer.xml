@@ -50,7 +50,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="在Xdpi下绘制Xpx长度，实际的物理距离都是1英寸，为什么一定要选160呢？如果设定宽高为厘米，或者英寸之类的物理单位，屏幕根据dpi的大小来计算要显示多少像素才能达到这个物理单位，不是更好？为什么要引入dp？" />
+            android:text="" />
 
     </LinearLayout>
 
@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/answerButtonNext"
             style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/answerButtonBack"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
