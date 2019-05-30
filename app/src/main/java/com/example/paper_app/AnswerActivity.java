@@ -59,20 +59,24 @@ public class AnswerActivity extends AppCompatActivity {
             }
         });
 
-        List<ChoiceOption> choiceOptions = choice.getChoiceOptions();
+        final List<ChoiceOption> choiceOptions = choice.getChoiceOptions();
         if (choice != null){
-            TextView textView = findViewById(R.id.textView);
-            textView.setText(choice.getChoiceTitle());
-            if (choiceOptions.size() > 0){
-                for(int i = 0; i<choiceOptions.size(); i++){
-                    ChoiceOption choiceOption = choiceOptions.get(i);
-                    CheckBox checkBox = new CheckBox(getBaseContext());
-                    checkBox.setText(choiceOption.getChoiceOptionTitle());
-                    linearLayout.addView(checkBox, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
+            this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TextView textView = findViewById(R.id.textView);
+                    textView.setText(choice.getChoiceTitle());
+                    if (choiceOptions.size() > 0){
+                        for(int i = 0; i<choiceOptions.size(); i++){
+                            ChoiceOption choiceOption = choiceOptions.get(i);
+                            CheckBox checkBox = new CheckBox(getBaseContext());
+                            checkBox.setText(choiceOption.getChoiceOptionTitle());
+                            linearLayout.addView(checkBox, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
+                        }
+                    }
                 }
-            }else {
-                return  false;
-            }
+            });
+
         }else{
             return  false;
         }
