@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">テスト</string>
     <string name="app_charset_name">UTF-8</string>
-    <string name="app_level_name">categoryName</string>
-    <string name="app_wait">しばしお待ちください</string>
-    <string name="api_url">http://192.168.10.6:3000/</string>
+    <string name="app_level_id">levelId</string>
+    <string name="app_level_name">levelName</string>
+    <string name="app_wait">しばらくお待ちください</string>
+    <string name="api_level_url">http://192.168.10.6:8080/getQLevel</string>
+    <string name="api_choice_url">http://192.168.10.6:8080/getQChoiceById</string>
     <string name="title_activity_answer">AnswerActivity</string>
 </resources>
