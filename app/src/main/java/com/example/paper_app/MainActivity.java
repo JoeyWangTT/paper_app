@@ -20,6 +20,8 @@ import org.json.JSONException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.example.paper_app.handler.CoreHandler;
+
 public class MainActivity extends AppCompatActivity {
 
     private final int MP = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -92,7 +94,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this,AnswerActivity.class);
-                intent.putExtra("id", id);
+                //intent.putExtra("id", id);
+                CoreHandler.setChoiceLevel(id);
                 startActivity(intent);
             }
         });
