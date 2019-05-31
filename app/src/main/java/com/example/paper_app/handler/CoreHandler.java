@@ -74,6 +74,13 @@ public class CoreHandler {
             @Override
             public void onFailure(Call call, IOException e) {
                 //ToastUtil.showToast(PostFormActivity.this, "Post Form 失败");
+                Log.i("++CoreHandler onFailure", answerActivity.getString(R.string.error_choice_init));
+                answerActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(answerActivity,answerActivity.getString(R.string.error_choice_init), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
@@ -105,6 +112,7 @@ public class CoreHandler {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Log.i("++CoreHandler　onResp", answerActivity.getString(R.string.error_choice_init));
                     answerActivity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
