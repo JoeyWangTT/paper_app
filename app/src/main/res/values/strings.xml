@@ -11,5 +11,5 @@
     <string name="text_choice_type_plural">多選択</string>
     <string name="error_choice_init">エラーが発生しました</string>
     <string name="error_not_choice">選択してください</string>
-    <string name="title_activity_score">ScoreActivity</string>
+    <string name="title_activity_score">ScoreActivity1</string>
 </resources>
