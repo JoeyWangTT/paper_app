@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                setBtnText(linearLayout, "test");
                 HttpURLConnection connection = null;
                 BufferedReader reader = null;
                 try {
@@ -61,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray jsonArr = new JSONArray(response.toString());
                     for (int i = 0; i < jsonArr.length(); i++) {
                         JSONObject tmpJson = (JSONObject) jsonArr.get(i);
-                        setBtnText(linearLayout, tmpJson.getString(getString(R.string.app_level_name)));
+                        setBtnText(linearLayout,
+                                tmpJson.getString(getString(R.string.app_level_id)),
+                                tmpJson.getString(getString(R.string.app_level_name)));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -84,15 +85,15 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    protected void setBtnText(LinearLayout layout, String text) {
+    protected void setBtnText(LinearLayout layout, final String id, String text) {
         Button btn = new Button(getBaseContext());
         btn.setText(text);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,AnswerActivity.class);   //Intent intent=new Intent(MainActivity.this,JumpToActivity.class);
+                Intent intent=new Intent(MainActivity.this,AnswerActivity.class);
+                intent.putExtra("id", id);
                 startActivity(intent);
-                //setContentView(R.layout.activity_answer);
             }
         });
         layout.addView(btn, new LinearLayout.LayoutParams(MP, WC));
