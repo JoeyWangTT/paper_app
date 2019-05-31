@@ -87,18 +87,23 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    protected void setBtnText(LinearLayout layout, final String id, String text) {
-        Button btn = new Button(getBaseContext());
-        btn.setText(text);
-        btn.setOnClickListener(new View.OnClickListener() {
+    protected void setBtnText(final LinearLayout layout, final String id, final String text) {
+        this.runOnUiThread(new Runnable() {
             @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,AnswerActivity.class);
-                //intent.putExtra("id", id);
-                CoreHandler.setChoiceLevel(id);
-                startActivity(intent);
+            public void run() {
+            Button btn = new Button(getBaseContext());
+            btn.setText(text);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(MainActivity.this,AnswerActivity.class);
+                    //intent.putExtra("id", id);
+                    CoreHandler.setChoiceLevel(id);
+                    startActivity(intent);
+                }
+            });
+            layout.addView(btn, new LinearLayout.LayoutParams(MP, WC));
             }
         });
-        layout.addView(btn, new LinearLayout.LayoutParams(MP, WC));
     }
 }
