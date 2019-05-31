@@ -1,4 +1,4 @@
-package com.example.paper_app.handler;
+package com.example.paper_app;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

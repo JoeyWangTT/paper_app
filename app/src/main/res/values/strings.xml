@@ -5,7 +5,7 @@
     <string name="app_level_name">levelName</string>
     <string name="app_wait">しばらくお待ちください</string>
     <string name="api_level_url">http://192.168.0.114:8080/getQLevel</string>
-    <string name="api_choice_url">http://192.168.10.6:8080/getQChoiceById</string>
+    <string name="api_choice_url">http://192.168.0.114:8080/getQChoiceById/</string>
     <string name="title_activity_answer">AnswerActivity</string>
     <string name="text_choice_type_single">単選択</string>
     <string name="text_choice_type_plural">多選択</string>

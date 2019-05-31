@@ -59,15 +59,16 @@ public class CoreHandler {
 
     public  static boolean initChoices(final AnswerActivity answerActivity){
         OkHttpClient client = new OkHttpClient();
+        String choicesUrl = answerActivity.getString(R.string.api_choice_url) + getChoiceLevel();
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("key", "value")
                 .build();
         final Request request = new Request.Builder()
-                .url(ChoicesURL + getChoiceLevel())
+                .url(choicesUrl)
                 .post(requestBody)
                 .build();
-        Log.i("++CoreHandler ", ChoicesURL + getChoiceLevel());
+        Log.i("++CoreHandler ", choicesUrl);
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -104,7 +105,12 @@ public class CoreHandler {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(answerActivity,answerActivity.getString(R.string.text_choice_type_plural), Toast.LENGTH_SHORT).show();
+                    answerActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(answerActivity,answerActivity.getString(R.string.error_choice_init), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
             }
         });

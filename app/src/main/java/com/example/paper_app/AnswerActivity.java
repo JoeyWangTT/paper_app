@@ -17,10 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.paper_app.container.Choice;
-import com.example.paper_app.container.ChoiceCache;
 import com.example.paper_app.container.ChoiceOption;
 import com.example.paper_app.handler.CoreHandler;
-import com.example.paper_app.handler.ScoreActivity;
 
 import java.util.List;
 
