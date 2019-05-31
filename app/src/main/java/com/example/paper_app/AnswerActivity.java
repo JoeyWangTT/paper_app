@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.paper_app.container.Choice;
 import com.example.paper_app.container.ChoiceCache;
@@ -39,8 +40,13 @@ public class AnswerActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Hello", Snackbar.LENGTH_LONG)
+                        .setAction("Action", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(AnswerActivity.this,"你点击了action", Toast.LENGTH_SHORT).show();
+                            }
+                        }).show();
             }
         });
         init();
@@ -49,51 +55,73 @@ public class AnswerActivity extends AppCompatActivity {
     public boolean initView (){
         final LinearLayout linearLayout = findViewById(R.id.linearLayout);
         final int index = CoreHandler.getChoiceIndex();
-         choice = CoreHandler.getChoice(index);
-        /*this.runOnUiThread(new Runnable() {
+        if (CoreHandler.choiceSize() == 0){
+            Toast.makeText(AnswerActivity.this,getString(R.string.text_choice_type_plural), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        choice = CoreHandler.getChoice(index);
+        if (choice == null){
+            Toast.makeText(AnswerActivity.this,getString(R.string.text_choice_type_plural), Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        final List<ChoiceOption> choiceOptions = choice.getChoiceOptions();
+
+        this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                CheckBox checkBox6 = new CheckBox(getBaseContext());
-                checkBox6.setText("Android Design [4] 里把主流设备的 dpi 归成了四个档次，320 dpi6666");
-                linearLayout.addView(checkBox6, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
-            }
-        });*/
-
-        final List<ChoiceOption> choiceOptions = choice.getChoiceOptions();
-        if (choice != null){
-            this.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    TextView textView = findViewById(R.id.textView);
-                    textView.setText( (index + 1) + "."+ choice.getChoiceTitle());
-                    if (choiceOptions.size() > 0){
-                        if (1 == 0) {
-                            for (int i = 0; i < choiceOptions.size(); i++) {
-                                ChoiceOption choiceOption = choiceOptions.get(i);
-                                CheckBox checkBox = new CheckBox(getBaseContext());
-                                checkBox.setId(i);
-                                checkBox.setText(choiceOption.getChoiceOptionTitle());
-                                linearLayout.addView(checkBox, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
-                            }
-                        } else {
-                            RadioGroup group = new RadioGroup(getBaseContext());
-                            for (int i = 0; i < choiceOptions.size(); i++) {
-                                ChoiceOption choiceOption = choiceOptions.get(i);
-                                RadioButton radioButton = new RadioButton(getBaseContext());
-                                radioButton.setId(i);
-                                radioButton.setText(choiceOption.getChoiceOptionTitle());
-                                group.addView(radioButton,i, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
-
-                            }
-                            linearLayout.addView(group, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                TextView textView = findViewById(R.id.textView);
+                String choiceTypeStr;
+                if (choice.getChoiceType() != null && choice.getChoiceType() == 0){
+                    choiceTypeStr = "[" +getString(R.string.text_choice_type_single) + "]";
+                }else{
+                    choiceTypeStr = "[" +getString(R.string.text_choice_type_plural) + "]";
+                }
+                textView.setText( (index + 1) + "."+ choice.getChoiceTitle() + choiceTypeStr);
+                if (choiceOptions.size() > 0){
+                    if (choice.getChoiceType()!= null && choice.getChoiceType() == 0) {
+                        RadioGroup group = new RadioGroup(getBaseContext());
+                        for (int i = 0; i < choiceOptions.size(); i++) {
+                            ChoiceOption choiceOption = choiceOptions.get(i);
+                            RadioButton radioButton = new RadioButton(getBaseContext());
+                            radioButton.setId(i);
+                            radioButton.setText(choiceOption.getChoiceOptionId() + "." + choiceOption.getChoiceOptionTitle());
+                            final String key = choiceOption.getChoiceOptionId();
+                            radioButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    CoreHandler.getChoice(index).saveUserAnswers(key);
+                                    TextView textViewTemp = findViewById(R.id.textView);
+                                    textViewTemp.setText(textViewTemp.getText() + CoreHandler.getChoice(index).getUserAnswers().toString());
+                                }
+                            });
+                            group.addView(radioButton,i, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
                         }
+                        linearLayout.addView(group, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+                    } else {
+                        for (int i = 0; i < choiceOptions.size(); i++) {
+                            ChoiceOption choiceOption = choiceOptions.get(i);
+                            CheckBox checkBox = new CheckBox(getBaseContext());
+                            checkBox.setId(i);
+                            checkBox.setText(choiceOption.getChoiceOptionId() + "." + choiceOption.getChoiceOptionTitle());
+                            final String key = choiceOption.getChoiceOptionId();
+                            checkBox.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    CoreHandler.getChoice(index).saveUserAnswers(key);
+                                    TextView textViewTemp = findViewById(R.id.textView);
+                                    textViewTemp.setText(textViewTemp.getText() + CoreHandler.getChoice(index).getUserAnswers().toString());
+
+                                }
+                            });
+                            linearLayout.addView(checkBox, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
+                        }
+
                     }
                 }
-            });
+            }
+        });
 
-        }else{
-            return  false;
-        }
         return  true;
     }
 
@@ -112,6 +140,10 @@ public class AnswerActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (choice ==  null || choice.getUserAnswers().size() == 0){
+                    Toast.makeText(AnswerActivity.this,getString(R.string.error_not_choice), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent;
                 if (CoreHandler.choiceSize() <= (index + 1)){
                     intent=new Intent(AnswerActivity.this,MainActivity.class);
@@ -145,10 +177,10 @@ public class AnswerActivity extends AppCompatActivity {
             initView();
         }
 
-        final LinearLayout linearLayout = findViewById(R.id.linearLayout);
+        /*final LinearLayout linearLayout = findViewById(R.id.linearLayout);
         CheckBox checkBox3 = new CheckBox(getBaseContext());
         checkBox3.setText("Android Design [4] 里把主流设备的 dpi 归成了四个档次，320 dpi3333" + index);
-        linearLayout.addView(checkBox3, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
+        linearLayout.addView(checkBox3, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));*/
         return  false;
     }
 

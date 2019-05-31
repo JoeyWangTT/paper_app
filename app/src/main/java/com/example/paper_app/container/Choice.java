@@ -1,6 +1,7 @@
 package com.example.paper_app.container;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Choice {
@@ -17,6 +18,8 @@ public class Choice {
     private String categoryId;
 
     private List<ChoiceOption> choiceOptions = new ArrayList<>();
+
+    private HashMap<String,String> userAnswers = new HashMap<>();
 
     public String getChoiceId() {
         return choiceId;
@@ -72,5 +75,25 @@ public class Choice {
 
     public void setChoiceOptions(List<ChoiceOption> choiceOptions) {
         this.choiceOptions = choiceOptions;
+    }
+
+    public HashMap<String, String> getUserAnswers() {
+        return userAnswers;
+    }
+
+    public void setUserAnswers(HashMap<String, String> userAnswers) {
+        this.userAnswers = userAnswers;
+    }
+
+    public  void saveUserAnswers(String key){
+
+        if (userAnswers.containsKey(key)){
+            userAnswers.remove(key);
+        }else{
+            if (this.getChoiceType() == 0){
+                userAnswers.clear();
+            }
+            userAnswers.put(key,key);
+        }
     }
 }

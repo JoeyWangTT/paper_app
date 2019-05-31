@@ -1,17 +1,19 @@
 package com.example.paper_app.handler;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.example.paper_app.AnswerActivity;
+import com.example.paper_app.R;
 import com.example.paper_app.container.Choice;
 import com.example.paper_app.container.ChoiceCache;
 import com.example.paper_app.container.ChoiceOption;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.IOException;
-import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -65,6 +67,7 @@ public class CoreHandler {
                 .url(ChoicesURL + getChoiceLevel())
                 .post(requestBody)
                 .build();
+        Log.i("++CoreHandler ", ChoicesURL + getChoiceLevel());
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -101,6 +104,7 @@ public class CoreHandler {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Toast.makeText(answerActivity,answerActivity.getString(R.string.text_choice_type_plural), Toast.LENGTH_SHORT).show();
                 }
             }
         });
