@@ -20,6 +20,7 @@ import com.example.paper_app.container.Choice;
 import com.example.paper_app.container.ChoiceCache;
 import com.example.paper_app.container.ChoiceOption;
 import com.example.paper_app.handler.CoreHandler;
+import com.example.paper_app.handler.ScoreActivity;
 
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class AnswerActivity extends AppCompatActivity {
             Toast.makeText(AnswerActivity.this,getString(R.string.text_choice_type_plural), Toast.LENGTH_SHORT).show();
             return false;
         }
+        choice.getUserAnswers().clear();
         final List<ChoiceOption> choiceOptions = choice.getChoiceOptions();
 
         this.runOnUiThread(new Runnable() {
@@ -94,7 +96,9 @@ public class AnswerActivity extends AppCompatActivity {
                                     textViewTemp.setText(textViewTemp.getText() + CoreHandler.getChoice(index).getUserAnswers().toString());
                                 }
                             });
-                            group.addView(radioButton,i, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
+                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40);
+                            lp.setMargins(0,8,0,0);
+                            group.addView(radioButton,i,lp );
                         }
                         linearLayout.addView(group, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
@@ -114,7 +118,9 @@ public class AnswerActivity extends AppCompatActivity {
 
                                 }
                             });
-                            linearLayout.addView(checkBox, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
+                            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40);
+                            lp.setMargins(0,8,0,0);
+                            linearLayout.addView(checkBox, lp);
                         }
 
                     }
@@ -131,7 +137,7 @@ public class AnswerActivity extends AppCompatActivity {
         btnEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Intent intent=new Intent(AnswerActivity.this,MainActivity.class);
+            Intent intent=new Intent(AnswerActivity.this,ScoreActivity.class);
             startActivity(intent);
             }
         });
@@ -146,7 +152,7 @@ public class AnswerActivity extends AppCompatActivity {
                 }
                 Intent intent;
                 if (CoreHandler.choiceSize() <= (index + 1)){
-                    intent=new Intent(AnswerActivity.this,MainActivity.class);
+                    intent=new Intent(AnswerActivity.this, ScoreActivity.class);
                 }else {
                     CoreHandler.setChoicesIndex(index + 1);
                     intent=new Intent(AnswerActivity.this,AnswerActivity.class);
