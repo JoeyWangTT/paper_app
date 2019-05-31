@@ -8,4 +8,15 @@
     tools:context="ScoreActivity"
     tools:showIn="@layout/activity_score">
 
+    <LinearLayout
+        android:id="@+id/linearLayoutScore"
+        android:layout_width="395dp"
+        android:layout_height="659dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 </android.support.constraint.ConstraintLayout>

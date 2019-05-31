@@ -1,10 +1,14 @@
 package com.example.paper_app.handler;
 
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.paper_app.AnswerActivity;
 import com.example.paper_app.R;
+import com.example.paper_app.ScoreActivity;
 import com.example.paper_app.container.Choice;
 import com.example.paper_app.container.ChoiceCache;
 import com.example.paper_app.container.ChoiceOption;
@@ -14,6 +18,10 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -106,6 +114,31 @@ public class CoreHandler {
                             choice.setChoiceLevelId(jsonChoice.getString("levelId"));
                             choice.setChoiceTitle(jsonChoice.getString("choiceTitle"));
                             choice.setChoiceType(jsonChoice.getInt("choiceType"));
+                            String choiceAnswersStr = jsonChoice.getString("choiceAnswer");
+                            if (choiceAnswersStr == null ||  choiceAnswersStr.trim().length() == 0){
+                                answerActivity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(answerActivity,answerActivity.getString(R.string.error_choice_init), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                return;
+                            }
+                            String[] answers = choiceAnswersStr.trim().split(",");
+                            if (answers.length == 0){
+                                answerActivity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(answerActivity,answerActivity.getString(R.string.error_choice_init), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                return;
+                            }
+
+                            for (int j = 0; j<answers.length;j++ ){
+                                choice.getChoiceAnswers().put(answers[j],answers[j]);
+                            }
+                            Log.i("++CoreHandler　answers", choice.getChoiceAnswers().toString());
                             CoreHandler.addChoice(choice);
                         }
                         answerActivity.initView();
@@ -133,4 +166,65 @@ public class CoreHandler {
         cache.setChoiceIndex(index);
     }
 
+    public  static boolean score(final LinearLayout layout,final ScoreActivity scoreActivity){
+        List<Choice> choicesTemp =  new ArrayList<>();
+        choicesTemp.addAll(cache.getChoices());
+        final List<TextView>  textViews = new ArrayList<>();
+        int score = 0;
+        if (choicesTemp.size() > 0){
+            for (int i = 0;i<choicesTemp.size();i++){
+                Choice c = choicesTemp.get(i);
+                HashMap<String,String> answerMap = c.getChoiceAnswers();
+                HashMap<String,String> userAnswerMap = c.getUserAnswers();
+                if (answerMap.size() != userAnswerMap.size()){
+                    TextView textView = new TextView(scoreActivity.getBaseContext());
+                    StringBuilder sb = new StringBuilder("");
+                    sb.append((i+1) + "Y[" + answerMap.toString() +"]" );
+                    sb.append( "   User[" + userAnswerMap.toString() +"]" );
+                    sb.append( "   Error" );
+                    textView.setText(sb.toString());
+                    textViews.add(textView);
+                    continue;
+                }
+                boolean check = true;
+                for (Map.Entry entry : answerMap.entrySet()){
+                    if (!userAnswerMap.containsKey(entry.getKey())){
+                        check = false;
+                    }
+                }
+                if (!check){
+                    TextView textView = new TextView(scoreActivity.getBaseContext());
+                    StringBuilder sb = new StringBuilder("");
+                    sb.append((i+1) + "Y[" + answerMap.toString() +"]" );
+                    sb.append( "   User[" + userAnswerMap.toString() +"]" );
+                    sb.append( "   Error" );
+                    textView.setText(sb.toString());
+                    textViews.add(textView);
+                    continue;
+                }
+
+                TextView textView = new TextView(scoreActivity.getBaseContext());
+                StringBuilder sb = new StringBuilder("");
+                sb.append((i+1) + "Y[" + answerMap.toString() +"]" );
+                sb.append( "   User[" + userAnswerMap.toString() +"]" );
+                sb.append( "   YES" );
+                textView.setText(sb.toString());
+                textViews.add(textView);
+                score += 10;
+            }
+        }
+        TextView textView = new TextView(scoreActivity.getBaseContext());
+        textView.setText("" + score);
+        textViews.add(textView);
+        scoreActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0;i<textViews.size();i++){
+                    textViews.get(i).setId(i);
+                    layout.addView(textViews.get(i),i, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 40));
+                }
+            }
+        });
+        return  false;
+    }
 }

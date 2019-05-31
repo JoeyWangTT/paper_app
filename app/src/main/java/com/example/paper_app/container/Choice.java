@@ -9,7 +9,7 @@ public class Choice {
 
     private String choiceTitle;
 
-    private ArrayList<Integer>  choiceAnswers = new ArrayList<>();
+    private HashMap<String,String>  choiceAnswers = new HashMap<>();
 
     private Integer choiceType;
 
@@ -37,11 +37,11 @@ public class Choice {
         this.choiceTitle = choiceTitle;
     }
 
-    public ArrayList<Integer> getChoiceAnswers() {
+    public HashMap<String, String> getChoiceAnswers() {
         return choiceAnswers;
     }
 
-    public void setChoiceAnswers(ArrayList<Integer> choiceAnswers) {
+    public void setChoiceAnswers(HashMap<String, String> choiceAnswers) {
         this.choiceAnswers = choiceAnswers;
     }
 
